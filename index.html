@@ -8,106 +8,51 @@
   <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
   
   <!--<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">-->
+  <link rel="stylesheet" href="style.css">
 </head>
   <body>
-    <div class="container">  
       <h1>End to End Encrypted Chat</h1>
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username"><br>
-        <label for="room_name">Room Name:</label>
-        <input type="text" id="room_name" name="room_name"><br>
-        <label for="wss_url">Websocket URL :</label>
-        <input type="text" id="wss_url" name="wss_url"><br>
-        <button type="button" onclick="setConnectionDetails()" >Connect</button><br>
+      <br>
+    <div class="container">
+     <!-- <h1>End to End Encrypted Chat</h1>-->
+        <div class="side">
+         <div class="username">
+        <!--<label for="username">Username:</label>-->
+        <input type="text" id="username" name="username" placeholder="Enter Username"><br>
+         </div>
+         <br>
+         <div class="room_name">       
+        <!--<label for="room_name">Room Name:</label>-->
+        <input type="text" id="room_name" name="room_name" placeholder="Enter Room Number"><br>
+         </div>
+         <br>
+        <!--<div class="wss_url">
+          <input type="text" id="wss_url" name="wss_url" placeholder="Enter URL"><br>
+        </div>
+        <br>-->
+        <button type="button" onclick="setConnectionDetails()" >Connect</button>
         <button type="button" onclick="requestPublicKey()" >Request Public Key</button><br>
-        <br>
-        <textarea id="encrypted_texts_received" name="txtname" rows="4" cols="50" maxlength="200">
+         <br>
+        </div>
+        <div class="text">
+        <textarea id="encrypted_texts_received" name="txtname" rows="4" cols="50" maxlength="200" disabled>
           Encrypted texts Received :
         </textarea>
         <br>
-        <textarea id="decrypted_texts_received" name="txtname" rows="4" cols="50" maxlength="200">
+        <br>
+        <textarea id="decrypted_texts_received" name="txtname" rows="4" cols="50" maxlength="200" disabled>
           Decrypted texts Received :
         </textarea>
         <br>
+        <br>
         <textarea id="send_text" name="txtname" rows="4" cols="50" maxlength="200">
         </textarea>
+        <br>
         <button type="button" onclick="sendMessage()" >Send Message</button><br>
-      </div>      
+        </div>
+          
     </div>
   </body>
+  <script  type="text/javascript" src="./JSEncrypt.js"></script>
   <script  type="text/javascript" src="./script.js"></script>
-  <script >
-    var websocket = null;
-    var username = null;
-    var crypt = null;
-    var privateKey = null;
-    var publicKey = null;
-    document.addEventListener("DOMContentLoaded", function () {
-      crypt = new JSEncrypt({default_key_size: 1024});
-      privateKey = crypt.getPrivateKey();
-      publicKey = crypt.getPublicKey();
-      console.log("Keygen created");
-    });
-    //async function keygen(){
-    //}
-    //keygen();
-    console.log("Keygen called");
-    var otherPublicKey = null;
-    //console.log(publicKey);
-    function setConnectionDetails(){
-      username = document.getElementById("username").value
-      let room_name = document.getElementById("room_name").value
-      let wss_url = document.getElementById("wss_url").value
-      //localStorage.setItem("username", username);
-      //localStorage.setItem("room_name", room_name);
-      //localStorage.setItem("wss_url", wss_url);
-      websocket = new WebSocket(wss_url + room_name);
-      websocket.onmessage = function (event) {
-        let data = event.data;
-        if (data === 'getpublickey'){
-          sendPublicKey();
-        }
-        else{
-          data = JSON.parse(data);
-          if(data.publicKey && data.username !== username ){
-            savePublicKey(data);
-          }
-          else if(data.message && data.username !== username ){
-            //console.log(data.username);
-            document.getElementById('encrypted_texts_received').value = data.message+'\n\n';
-            const decrypt = new JSEncrypt();
-            decrypt.setPrivateKey(privateKey);
-            const message = decrypt.decrypt(data.message);
-            document.getElementById('decrypted_texts_received').value =(data.username + ' :\n' + message+'\n\n');
-          }
-        }
-      }
-      console.log('connection set');
-    }
-    function savePublicKey(data){
-      otherPublicKey = data.publicKey;
-    }
-    function sendPublicKey(){
-      if(websocket)
-        websocket.send(JSON.stringify({ username, publicKey }));
-    }
-    function requestPublicKey(){
-      if(websocket)
-        websocket.send('getpublickey');
-    }
-    function sendMessage(){
-      let message = document.getElementById('send_text').value;
-      if( websocket && username && otherPublicKey && message ){
-        const encrypt = new JSEncrypt();
-        encrypt.setPublicKey(otherPublicKey);
-        message = encrypt.encrypt(message);
-        websocket.send(JSON.stringify({
-          message,
-          username,
-        }));
-        document.getElementById('send_text').value='';
-      }
-    }
-  </script>
 </html>

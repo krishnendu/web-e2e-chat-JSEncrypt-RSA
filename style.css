@@ -1,0 +1,112 @@
+#grad {
+    background-image: linear-gradien(to right,rgba(23, 190, 187, 1),rgba(240, 166, 202, 1));
+  }
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', sans-serif;
+    
+}
+html,body{
+    background: url("Encrypting.jpg");
+    position: left bottom,right top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
+}
+
+.container {
+    /*display:ruby-base ;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;*/
+    height: 360px;
+    width: 680px;
+    margin-top: 140px;
+    margin-right: 260px;
+    margin-top:4px;
+    margin-left: 300px;
+    /*border:5px solid rgb(187, 253, 255);*/
+    background-color: rgba(235, 236, 243, 0.925);
+    /*box-sizing: border-box;
+    /*box-shadow: rgb(164, 255, 255);*/
+    /*background: rgba( 255, 255, 255, 0.25 );*/
+    box-shadow: 0 8px 32px 0 rgb(7, 70, 129,0.987);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.side {
+    
+    padding: auto;
+    float: right;
+    margin-top: 60px;
+    margin-right: 20px;
+    
+}
+.side button{
+    background-color:rgb(169, 169, 207);
+    color: whitesmoke;
+}
+.side button:hover{
+    color: white;
+    background-color: rgb(26, 75, 114);
+}
+h1 {
+    margin: 0.5em auto;
+    color:whitesmoke;
+    text-align: center;
+}
+.username input{
+    padding: 4px;
+    border-radius: 6px;
+}
+.room_name input {
+    padding: 4px;
+    border-radius: 6px;
+}
+.wss_url input{
+    padding: 4px;
+    border-radius: 6px;
+}
+
+button {
+    padding: 9px 6px;
+    border-radius: 12px;
+    
+}
+/*button:hover {
+    color: white;
+    background-color: rgb(26, 75, 114);
+}*/
+.text {
+    margin-top: 40px;
+    margin-left: 80px;
+
+}
+textarea {
+    border-radius: 12px;
+    margin-top: 4px;
+    box-shadow: 0 8px 32px 0 rgb(7, 70, 129,0.987);
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    background-color: rgb(243, 243, 253)
+}
+textarea p{
+    margin-top: 5px;
+}
+.text button {
+    margin-left: 250px;
+    margin-top: 4px;
+    background-color:rgb(169, 169, 207);
+    color: whitesmoke;
+}
+.text button:hover {
+        color: white;
+        background-color:  rgb(26, 75, 114);
+    }
